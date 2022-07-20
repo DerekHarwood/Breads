@@ -13,20 +13,23 @@ breads.get('/', (req, res) => {
   // res.send(Bread)
 })
 
+// NEW
+// http://localhost:3003/breads/new
+breads.get('/new', (req, res) => {
+  res.render('new')
+})
+
 // SHOW
+// http://localhost:3003/breads/new
 breads.get('/:arrayIndex', (req, res) => {
   if (Bread[req.params.arrayIndex]) {
     res.render('Show', {
-      bread:Bread[req.params.arrayIndex]
+      bread:Bread[req.params.arrayIndex],
+      index: req.params.arrayIndex,
     })
   } else {
-    res.send('404')
+    res.render('404')
   }
-})
-
-// NEW
-breads.get('/new', (req, res) => {
-  res.render('new')
 })
 
 // CREATE
@@ -41,6 +44,12 @@ breads.post('/', (req, res) => {
   }
   Bread.push(req.body)
   res.redirect('/breads')
+})
+
+// DELETE
+breads.delete('/:indexArray', (req, res) => {
+  Bread.splice(req.params.indexArray, 1)
+  res.status(303).redirect('/breads')
 })
 
 module.exports = breads
