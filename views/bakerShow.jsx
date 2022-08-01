@@ -10,6 +10,9 @@ function Show({ baker }) {
           return <li key={bread.id}>{bread.name}</li>;
         })}
       </ul>
+      <form action={`/bakers/${baker.id}?_method=DELETE`} method="POST">
+        <input type="submit" value="DELETE" />
+      </form>
       <p>
         {baker.name} has been baking with us since{" "}
         {baker.startDate.getFullYear()}
